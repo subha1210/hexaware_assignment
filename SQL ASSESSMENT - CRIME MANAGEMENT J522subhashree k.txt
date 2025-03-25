@@ -1,0 +1,286 @@
+SQL ASSESSMENT - CRIME MANAGEMENT
+
+
+Create tables
+
+CREATE TABLE Crime (
+ CrimeID INT PRIMARY KEY,
+ IncidentType VARCHAR(255),
+ IncidentDate DATE,
+ Location VARCHAR(255),
+ Description TEXT,
+ Status VARCHAR(20)
+);
+
+CREATE TABLE Victim (
+ VictimID INT PRIMARY KEY,
+ CrimeID INT,
+ Name VARCHAR(255),
+ ContactInfo VARCHAR(255),
+ Injuries VARCHAR(255),
+ FOREIGN KEY (CrimeID) REFERENCES Crime(CrimeID)
+);
+
+CREATE TABLE Suspect (
+ SuspectID INT PRIMARY KEY,
+ CrimeID INT,
+ Name VARCHAR(255),
+ Description TEXT,
+ CriminalHistory TEXT,
+ FOREIGN KEY (CrimeID) REFERENCES Crime(CrimeID)
+);
+
+
+ Insert sample data
+
+INSERT INTO Crime (CrimeID, IncidentType, IncidentDate, Location, Description, Status)
+VALUES
+ (1, 'Robbery', '2023-09-15', '123 Main St, Cityville', 'Armed robbery at a convenience store', 'Open'),
+ (2, 'Homicide', '2023-09-20', '456 Elm St, Townsville', 'Investigation into a murder case', 'Under Investigation'),
+ (3, 'Theft', '2023-09-10', '789 Oak St, Villagetown', 'Shoplifting incident at a mall', 'Closed');
+
+
+INSERT INTO Victim (VictimID, CrimeID, Name, ContactInfo, Injuries,DateOfBirth,Age)
+VALUES
+ (1, 1, 'John Doe', 'johndoe@example.com', 'Minor injuries', 1990-01-01,35),
+ (2, 2, 'Jane Smith', 'janesmith@example.com', 'Deceased', 1985-06-01,39),
+ (3, 3, 'Alice Johnson', 'alicejohnson@example.com', 'None', 1995-03-01,30);
+
+INSERT INTO Suspect (SuspectID, CrimeID, Name, Description, CriminalHistory)
+VALUES
+ (1, 1, 'Robber 1', 'Armed and masked robber', 'Previous robbery convictions'),
+ (2, 2, 'Unknown', 'Investigation ongoing', NULL),
+ (3, 3, 'Suspect 1', 'Shoplifting suspect', 'Prior shoplifting arrests');
+
+
+1. Select all open incidents.
+
+mysql> select * from Crime where Status = 'Open';
++---------+--------------+--------------+------------------------+--------------------------------------+--------+
+| CrimeID | IncidentType | IncidentDate | Location               | Description                          | Status |
++---------+--------------+--------------+------------------------+--------------------------------------+--------+
+|       1 | Robbery      | 2023-09-15   | 123 Main St, Cityville | Armed robbery at a convenience store | Open   |
++---------+--------------+--------------+------------------------+--------------------------------------+--------+
+1 row in set (0.00 sec)
+
+
+2. Find the total number of incidents.
+
+
+mysql> select count(*) as TotalIncidents from Crime;
++----------------+
+| TotalIncidents |
++----------------+
+|              3 |
++----------------+
+1 row in set (0.01 sec)
+
+
+3. List all unique incident types.
+
+mysql> select DISTINCT IncidentType from Crime;
++--------------+
+| IncidentType |
++--------------+
+| Robbery      |
+| Homicide     |
+| Theft        |
++--------------+
+3 rows in set (0.03 sec)
+
+
+4. Retrieve incidents that occurred between '2023-09-01' and '2023-09-10'.
+
+
+mysql> select * from Crime where IncidentDate BETWEEN '2023-09-01' AND '2023-09-10';
++---------+--------------+--------------+-------------------------+--------------------------------+--------+
+| CrimeID | IncidentType | IncidentDate | Location                | Description                    | Status |
++---------+--------------+--------------+-------------------------+--------------------------------+--------+
+|       3 | Theft        | 2023-09-10   | 789 Oak St, Villagetown | Shoplifting incident at a mall | Closed |
++---------+--------------+--------------+-------------------------+--------------------------------+--------+
+1 row in set (0.00 sec)
+
+
+5. List persons involved in incidents in descending order of age.
+
+
+mysql> select Name, Age from Victim ORDER BY Age DESC;
++---------------+------+
+| Name          | Age  |
++---------------+------+
+| Jane Smith    |   39 |
+| John Doe      |   35 |
+| Alice Johnson |   30 |
++---------------+------+
+3 rows in set (0.00 sec)
+
+
+6. Find the average age of persons involved in incidents.
+
+
+mysql> select AVG(Age) as AverageAge from Victim;
++------------+
+| AverageAge |
++------------+
+|    34.6667 |
++------------+
+1 row in set (0.03 sec)
+
+
+7. List incident types and their counts, only for open cases.
+
+
+mysql> select IncidentType, count(CrimeID) as Count from Crime where Status = 'Open' GROUP BY IncidentType;
++--------------+-------+
+| IncidentType | Count |
++--------------+-------+
+| Robbery      |     1 |
++--------------+-------+
+1 row in set (0.00 sec)
+
+
+8. Find persons with names containing 'Doe'.
+
+
+mysql> select Name from Victim where Name LIKE '%Doe%';
++----------+
+| Name     |
++----------+
+| John Doe |
++----------+
+1 row in set (0.03 sec)
+
+
+9. Retrieve the names of persons involved in open cases and closed cases.
+
+
+mysql> select V.Name AS VictimName, S.Name AS SuspectName from Crime C LEFT JOIN Victim V ON C.CrimeID = V.CrimeID LEFT JOIN Suspect S ON C.CrimeID = S.CrimeID where C.Status IN ('Open', 'Closed');
+
++---------------+-------------+
+| VictimName    | SuspectName |
++---------------+-------------+
+| John Doe      | Robber 1    |
+| Alice Johnson | Suspect 1   |
++---------------+-------------+
+2 rows in set (0.00 sec)
+
+
+10. List incident types where there are persons aged 30 or 35 involved.
+
+
+mysql> select DISTINCT c.IncidentType from Crime c JOIN Victim v ON c.CrimeID = v.CrimeID where v.Age IN (30, 35);
++--------------+
+| IncidentType |
++--------------+
+| Robbery      |
+| Theft        |
++--------------+
+2 rows in set (0.00 sec)
+
+
+11. Find persons involved in incidents of the same type as 'Robbery'.
+
+
+mysql> select v.Name from Victim v JOIN Crime c ON v.CrimeID = c.CrimeID where c.IncidentType = 'Robbery';
++----------+
+| Name     |
++----------+
+| John Doe |
++----------+
+1 row in set (0.00 sec)
+
+
+12. List incident types with more than one open case.
+
+
+mysql> select IncidentType from Crime where Status = 'Open' GROUP BY IncidentType HAVING COUNT(CrimeID) > 1;
+
+Empty set (0.00 sec)
+
+
+13. List all incidents with suspects whose names also appear as victims in other incidents.
+
+mysql> select c.CrimeID, c.IncidentType from Crime c JOIN Suspect s ON c.CrimeID = s.CrimeID JOIN Victim v ON s.Name = v.Name where s.Name = v.Name;
+
+Empty set (0.00 sec)
+
+
+14. Retrieve all incidents along with victim and suspect details.
+
+mysql> select c.CrimeID, c.IncidentType, v.Name AS VictimName, s.Name AS SuspectName from Crime c JOIN Victim v ON c.CrimeID = v.CrimeID JOIN Suspect s ON c.CrimeID = s.CrimeID;
+
++---------+--------------+---------------+-------------+
+| CrimeID | IncidentType | VictimName    | SuspectName |
++---------+--------------+---------------+-------------+
+|       1 | Robbery      | John Doe      | Robber 1    |
+|       2 | Homicide     | Jane Smith    | Unknown     |
+|       3 | Theft        | Alice Johnson | Suspect 1   |
++---------+--------------+---------------+-------------+
+3 rows in set (0.00 sec)
+
+
+15. Find incidents where the suspect is older than any victim.
+
+mysql> select c.CrimeID, c.IncidentType from Crime c JOIN Victim v ON c.CrimeID = v.CrimeID JOIN Suspect s ON c.CrimeID = s.CrimeID where YEAR(CURRENT_DATE) - YEAR(s.Description) > YEAR(CURRENT_DATE) - YEAR(v.ContactInfo);
+
+Empty set, 3 warnings (0.03 sec)
+
+
+16. Find suspects involved in multiple incidents:
+
+
+mysql> select s.Name, count(c.CrimeID) as count from Suspect s JOIN Crime c ON s.CrimeID = c.CrimeID GROUP BY s.Name HAVING COUNT(c.CrimeID) > 1;
+
+Empty set (0.00 sec)
+
+
+17. List incidents with no suspects involved.
+
+
+mysql> select c.CrimeID, c.IncidentType from Crime c LEFT JOIN Suspect s ON c.CrimeID = s.CrimeID where s.SuspectID IS NULL;
+
+Empty set (0.00 sec)
+
+
+18. List all cases where at least one incident is of type 'Homicide' and all other incidents are of type 
+'Robbery'.
+
+
+mysql> select c.CrimeID, c.IncidentType from Crime c where c.CrimeID IN (select c.CrimeID from Crime c where c.IncidentType = 'Homicide') OR c.CrimeID IN (select c.CrimeID from Crime c where c.IncidentType = 'Robbery' AND c.CrimeID NOT IN (select c.CrimeID from Crime c where c.IncidentType != 'Robbery'));
+
++---------+--------------+
+| CrimeID | IncidentType |
++---------+--------------+
+|       1 | Robbery      |
+|       2 | Homicide     |
++---------+--------------+
+2 rows in set (0.00 sec)
+
+
+19. Retrieve a list of all incidents and the associated suspects, showing suspects for each incident, or 
+'No Suspect' if there are none.
+
+mysql> select c.CrimeID, c.IncidentType, COALESCE(s.Name, 'No Suspect') as SuspectName from Crime c LEFT JOIN Suspect s ON c.CrimeID = s.CrimeID;
+
++---------+--------------+-------------+
+| CrimeID | IncidentType | SuspectName |
++---------+--------------+-------------+
+|       1 | Robbery      | Robber 1    |
+|       2 | Homicide     | Unknown     |
+|       3 | Theft        | Suspect 1   |
++---------+--------------+-------------+
+3 rows in set (0.00 sec)
+
+
+20. List all suspects who have been involved in incidents with incident types 'Robbery' or 'Assault'
+
+
+mysql> select s.SuspectID, s.Name from Suspect s JOIN Crime c ON s.CrimeID = c.CrimeID where c.IncidentType IN ('Robbery', 'Assault');
+
++-----------+----------+
+| SuspectID | Name     |
++-----------+----------+
+|         1 | Robber 1 |
++-----------+----------+
+1 row in set (0.00 sec)
+
