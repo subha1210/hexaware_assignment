@@ -1,0 +1,65 @@
+HOSPITAL MANAGEMENT SYSTEM
+
+mysql> create database hospital;
+
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use hospital;
+
+Database changed
+
+
+mysql> create table Patient(patientId int primary key, firstName varchar(50),lastName varchar(50),dateOfBirth date, gender varchar(20),contactNumber varchar(50),address varchar(200));
+
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into Patient(patientId, firstName, lastName, dateOfBirth, gender, contactNumber, address)values(1, 'anshitha', 'karthick', '2002-12-05', 'Female', '6329864673', 'Pune'), (2, 'vaishali', 'priya', '2000-03-18', 'Female', '8753298648', 'Chennai');
+
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from Patient;
+
++-----------+-----------+----------+-------------+--------+---------------+---------+
+| patientId | firstName | lastName | dateOfBirth | gender | contactNumber | address |
++-----------+-----------+----------+-------------+--------+---------------+---------+
+|         1 | anshitha  | karthick | 2002-12-05  | Female | 6329864673    | Pune    |
+|         2 | vaishali  | priya    | 2000-03-18  | Female | 8753298648    | Chennai |
++-----------+-----------+----------+-------------+--------+---------------+---------+
+2 rows in set (0.03 sec)
+
+mysql> create table Doctor(doctorId int primary key, firstName varchar(50),lastName varchar(50),specialization varchar(100),contactNumber varchar(50));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into Doctor(doctorId, firstName, lastName, specialization, contactNumber)values (101, 'subha', 'shree', 'Cardiologist', '9365678326'),(102, 'vishnu', 'priya', 'Gynecologist', '7329436534');
+
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from Doctor;
+
++----------+-----------+----------+----------------+---------------+
+| doctorId | firstName | lastName | specialization | contactNumber |
++----------+-----------+----------+----------------+---------------+
+|      101 | subha     | shree    | Cardiologist   | 9365678326    |
+|      102 | vishnu    | priya    | Gynecologist   | 7329436534    |
++----------+-----------+----------+----------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> create table Appointment (appointmentId int primary key, patientId int, doctorId int, appointmentDate date, description varchar(200), foreign key (patientId) references Patient(patientId), foreign key (doctorId) references Doctor(doctorId));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into Appointment(appointmentId, patientId, doctorId, appointmentDate, description)values (12761, 1, 101, '2025-04-13', 'General Checkup'),(12762, 2, 102, '2025-04-15', 'pcod');
+
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from Appointment;
+
++---------------+-----------+----------+-----------------+-----------------+
+| appointmentId | patientId | doctorId | appointmentDate | description     |
++---------------+-----------+----------+-----------------+-----------------+
+|         12761 |         1 |      101 | 2025-04-13      | General Checkup |
+|         12762 |         2 |      102 | 2025-04-15      | pcod            |
++---------------+-----------+----------+-----------------+-----------------+
+2 rows in set (0.00 sec)
