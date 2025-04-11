@@ -1,0 +1,76 @@
+PROJECT MANAGEMENT SYSTEM OUTPUT:
+
+mysql> use project;
+Database changed
+mysql> CREATE TABLE Project (
+    ->     id INT PRIMARY KEY,
+    ->     projectName VARCHAR(100),
+    ->     description TEXT,
+    ->     startDate DATE,
+    ->     status ENUM('started', 'dev', 'build', 'test', 'deployed')
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE Employee (
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(100),
+    ->     designation VARCHAR(100),
+    ->     gender ENUM('Male', 'Female', 'Other'),
+    ->     salary DECIMAL(10, 2),
+    ->     project_id INT,
+    ->     FOREIGN KEY (project_id) REFERENCES Project(id) ON DELETE SET NULL
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE Task (
+    ->     task_id INT PRIMARY KEY,
+    ->     task_name VARCHAR(100),
+    ->     status ENUM('Assigned', 'Started', 'Completed'),
+    ->     project_id INT,
+    ->     employee_id INT,
+    ->     FOREIGN KEY (project_id) REFERENCES Project(id) ON DELETE CASCADE,
+    ->     FOREIGN KEY (employee_id) REFERENCES Employee(id) ON DELETE SET NULL
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into Project (id, projectName, description, startDate, status) values(101, 'Hospital System', 'Manage hospital staff and patients', '2025-02-12', 'started'),(102, 'E-Commerce App', 'Handles product orders and customers', '2025-01-15', 'dev');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into Employee (id, name, designation, gender, salary, project_id) values(1, 'subha', 'Developer', 'Female', 65000.00, 101),(2, 'vishnu', 'Tester', 'Female', 55000.00, 101),(3, 'shree', 'Project Manager', 'Female', 85000.00, NULL);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into Task (task_id, task_name, status, project_id, employee_id) values(201, 'Design DB', 'Assigned', 101, 1),(202,'Create API', 'Started', 101, 1),(203, 'Test Module', 'Completed', 101, 2),(204, 'Write Docs', 'Assigned', 102, NULL);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from Project;
++-----+-----------------+--------------------------------------+------------+---------+
+| id  | projectName     | description                          | startDate  | status  |
++-----+-----------------+--------------------------------------+------------+---------+
+| 101 | Hospital System | Manage hospital staff and patients   | 2025-02-12 | started |
+| 102 | E-Commerce App  | Handles product orders and customers | 2025-01-15 | dev     |
++-----+-----------------+--------------------------------------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Employee;
++----+--------+-----------------+--------+----------+------------+
+| id | name   | designation     | gender | salary   | project_id |
++----+--------+-----------------+--------+----------+------------+
+|  1 | subha  | Developer       | Female | 65000.00 |        101 |
+|  2 | vishnu | Tester          | Female | 55000.00 |        101 |
+|  3 | shree  | Project Manager | Female | 85000.00 |       NULL |
++----+--------+-----------------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Task;
++---------+-------------+-----------+------------+-------------+
+| task_id | task_name   | status    | project_id | employee_id |
++---------+-------------+-----------+------------+-------------+
+|     201 | Design DB   | Assigned  |        101 |           1 |
+|     202 | Create API  | Started   |        101 |           1 |
+|     203 | Test Module | Completed |        101 |           2 |
+|     204 | Write Docs  | Assigned  |        102 |        NULL |
++---------+-------------+-----------+------------+-------------+
+4 rows in set (0.00 sec)
