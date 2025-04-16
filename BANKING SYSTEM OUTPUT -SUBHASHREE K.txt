@@ -1,0 +1,184 @@
+BANKING SYSTEM OUTPUT -SUBHASHREE K
+
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 1
+First Name: uma
+Last Name: bharathi
+Email: uma.bharathi@example.com
+Phone: 9876467899
+Address: kochi
+Account Type (Savings/Current/ZeroBalance): Savings
+Initial Balance: 5000
+Account created with number: 1001
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 1
+First Name: aakash
+Last Name: sharma
+Email: aakash.sharma@example.com
+Phone: 6589965685
+Address: indore
+Account Type (Savings/Current/ZeroBalance): Savings
+Initial Balance: 10000
+Account created with number: 1002
+
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 2
+Account Number: 1001
+Amount: 1500
+Deposited: 1500.0, New Balance: 6500.0
+
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 3
+Account Number: 1001
+Amount: 200
+Withdrawn: 200.0, New Balance: 6300.0
+
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 4
+From Account: 1002
+To Account: 1001
+Amount: 1000
+Withdrawn: 1000.0, New Balance: 9000.0
+Deposited: 1000.0, New Balance: 7300.0
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 5
+Account Number: 1002
+Balance: 9000.0
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 6
+Account Number: 1001
+Account Number: 1001
+Account Type: Savings
+Balance: 7300.0
+Customer ID: 1744828719363
+Name: uma bharathi
+Email: uma.bharathi@example.com
+Phone: 9876467899
+Address: kochi
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 7
+Account Number: 1001
+Account Type: Savings
+Balance: 7300.0
+Customer ID: 1744828719363
+Name: uma bharathi
+Email: uma.bharathi@example.com
+Phone: 9876467899
+Address: kochi
+------------------------------
+Account Number: 1002
+Account Type: Savings
+Balance: 9000.0
+Customer ID: 1744829025135
+Name: aakash sharma
+Email: aakash.sharma@example.com
+Phone: 6589965685
+Address: indore
+------------------------------
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 8
+Interest added: 328.5, New Balance: 7628.5
+Interest added: 405.0, New Balance: 9405.0
+
+===== HMBank Menu =====
+1. Create Account
+2. Deposit
+3. Withdraw
+4. Transfer
+5. Get Balance
+6. Get Account Details
+7. List All Accounts
+8. Calculate Interest
+9. Exit
+Enter your choice: 9
+Exit the application..
