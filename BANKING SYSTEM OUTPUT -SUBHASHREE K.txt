@@ -19,7 +19,7 @@ Phone: 9876467899
 Address: kochi
 Account Type (Savings/Current/ZeroBalance): Savings
 Initial Balance: 5000
-Account created with number: 1001
+Account created with number: 1006
 
 ===== HMBank Menu =====
 1. Create Account
@@ -39,7 +39,7 @@ Phone: 6589965685
 Address: indore
 Account Type (Savings/Current/ZeroBalance): Savings
 Initial Balance: 10000
-Account created with number: 1002
+Account created with number: 1007
 
 
 ===== HMBank Menu =====
@@ -53,7 +53,7 @@ Account created with number: 1002
 8. Calculate Interest
 9. Exit
 Enter your choice: 2
-Account Number: 1001
+Account Number: 1006
 Amount: 1500
 Deposited: 1500.0, New Balance: 6500.0
 
@@ -69,7 +69,7 @@ Deposited: 1500.0, New Balance: 6500.0
 8. Calculate Interest
 9. Exit
 Enter your choice: 3
-Account Number: 1001
+Account Number: 1006
 Amount: 200
 Withdrawn: 200.0, New Balance: 6300.0
 
@@ -85,8 +85,8 @@ Withdrawn: 200.0, New Balance: 6300.0
 8. Calculate Interest
 9. Exit
 Enter your choice: 4
-From Account: 1002
-To Account: 1001
+From Account: 1007
+To Account: 1006
 Amount: 1000
 Withdrawn: 1000.0, New Balance: 9000.0
 Deposited: 1000.0, New Balance: 7300.0
@@ -102,7 +102,7 @@ Deposited: 1000.0, New Balance: 7300.0
 8. Calculate Interest
 9. Exit
 Enter your choice: 5
-Account Number: 1002
+Account Number: 1007
 Balance: 9000.0
 
 ===== HMBank Menu =====
@@ -116,8 +116,8 @@ Balance: 9000.0
 8. Calculate Interest
 9. Exit
 Enter your choice: 6
-Account Number: 1001
-Account Number: 1001
+Account Number: 1006
+Account Number: 1006
 Account Type: Savings
 Balance: 7300.0
 Customer ID: 1744828719363
@@ -137,7 +137,7 @@ Address: kochi
 8. Calculate Interest
 9. Exit
 Enter your choice: 7
-Account Number: 1001
+Account Number: 1006
 Account Type: Savings
 Balance: 7300.0
 Customer ID: 1744828719363
@@ -146,7 +146,7 @@ Email: uma.bharathi@example.com
 Phone: 9876467899
 Address: kochi
 ------------------------------
-Account Number: 1002
+Account Number: 1007
 Account Type: Savings
 Balance: 9000.0
 Customer ID: 1744829025135
